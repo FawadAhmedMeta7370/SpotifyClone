@@ -1,10 +1,10 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React, {useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
-import Login from './src/Screens/Auth/Login/Login';
 import {enableScreens} from 'react-native-screens';
+import InititalScreen from './src/Screens/Auth/InititalScreen/InititalScreen';
 enableScreens();
 
 function App(): React.JSX.Element {
@@ -16,7 +16,11 @@ function App(): React.JSX.Element {
         BootSplash.hide();
       }}>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen
+          name="Login"
+          component={InititalScreen}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
