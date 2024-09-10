@@ -1,11 +1,15 @@
 import {FC} from 'react';
+import {styles} from './style';
 import {Image, Text, View} from 'react-native';
 import {ILogin} from '../../../Constants/Interface';
 import {images} from '../../../Assets/Images/Images';
-import {styles} from './style';
 import CustomButton from '../../../Components/CustomButton/CustomButton';
 
-const InititalScreen: FC<ILogin> = () => {
+const InititalScreen: FC<ILogin> = ({navigation}) => {
+  function LoginNavigationHandler() {
+    navigation.navigate('Login Screen');
+  }
+
   return (
     <View style={styles.contianer}>
       <View style={styles.imagecontainer}>
@@ -40,7 +44,8 @@ const InititalScreen: FC<ILogin> = () => {
       </CustomButton>
       <CustomButton
         BTstyle={styles.BTstyle}
-        BBGstyle={{backgroundColor: 'black'}}>
+        BBGstyle={{backgroundColor: 'black'}}
+        onPress={LoginNavigationHandler}>
         Login
       </CustomButton>
     </View>

@@ -37,10 +37,10 @@ export const styles = StyleSheet.create({
   BTstyle: {
     color: 'white',
   },
-  Googlestyle:{
+  Googlestyle: {
     height: 25,
     width: 25,
-    marginLeft: '2%'
+    marginLeft: '2%',
   },
   Phonestyle: {
     height: 35,
@@ -50,6 +50,6 @@ export const styles = StyleSheet.create({
     height: 20,
     width: 20,
     marginLeft: '2.5%',
-    marginTop: '1%'
-  }
+    marginTop: '1%',
+  },
 });
