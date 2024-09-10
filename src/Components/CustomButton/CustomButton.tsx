@@ -1,6 +1,6 @@
 import {FC} from 'react';
 import {Image, Pressable, Text, View} from 'react-native';
-import {ICustomButton} from '../../Constants/Interface';
+import {ICustomButton} from '../../Interface/Interface';
 import {styles} from './style';
 
 const CustomButton: FC<ICustomButton> = ({

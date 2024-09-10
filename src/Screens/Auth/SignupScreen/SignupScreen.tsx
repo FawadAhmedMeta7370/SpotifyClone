@@ -2,7 +2,7 @@ import {FC} from 'react';
 import {styles} from './style';
 import {Image, Text, View} from 'react-native';
 import {images} from '../../../Assets/Images/Images';
-import {ISignupScreen} from '../../../Constants/Interface';
+import {ISignupScreen} from '../../../Interface/Interface';
 import CustomButton from '../../../Components/CustomButton/CustomButton';
 import CustomTextInput from '../../../Components/CustomTextInput/CustomTextInput';
 
@@ -14,7 +14,7 @@ const SignupScreen: FC<ISignupScreen> = ({navigation}) => {
   return (
     <View style={styles.contianer}>
       <View style={styles.imagecontainer}>
-        <Image style={styles.image} source={images.SpotifyLogoBaW} />
+        <Image style={styles.image} source={images.SpotifyWrittenLogo} />
       </View>
       <View style={styles.textcontainer}>
         <Text style={styles.text}>Enjoy Listening To Music.</Text>

@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import {styles} from './style';
-import {Image, Pressable, Text, TouchableOpacity, View} from 'react-native';
-import {ILogin} from '../../../Constants/Interface';
+import {Image, Text, View} from 'react-native';
+import {ILogin} from '../../../Interface/Interface';
 import {images} from '../../../Assets/Images/Images';
 import CustomTextInput from '../../../Components/CustomTextInput/CustomTextInput';
 import CustomButton from '../../../Components/CustomButton/CustomButton';
@@ -10,10 +10,13 @@ const Login: FC<ILogin> = ({navigation}) => {
   function SignupNavigationHandler() {
     navigation.navigate('Signup Screen');
   }
+  function HomeNavigationHandler() {
+    navigation.navigate('Home');    
+  }
   return (
     <View style={styles.contianer}>
       <View style={styles.imagecontainer}>
-        <Image style={styles.image} source={images.SpotifyLogoBaW} />
+        <Image style={styles.image} source={images.SpotifyWrittenLogo} />
       </View>
       <View style={styles.textcontainer}>
         <Text style={styles.text}>Enjoy Listening To Music.</Text>
@@ -22,7 +25,7 @@ const Login: FC<ILogin> = ({navigation}) => {
         <CustomTextInput children={'Email Address or Username'} />
         <CustomTextInput children={'Password'} />
         <View style={{marginVertical: '5%'}}>
-          <CustomButton BTstyle={{fontSize: 20}}> Login </CustomButton>
+          <CustomButton onPress={HomeNavigationHandler} BTstyle={{fontSize: 20}}> Login </CustomButton>
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <Text style={{color: 'white', fontSize: 20}}>

@@ -4,9 +4,10 @@ import BootSplash from 'react-native-bootsplash';
 import {enableScreens} from 'react-native-screens';
 import {NavigationContainer} from '@react-navigation/native';
 import Login from './src/Screens/Auth/LoginScreen/LoginScreen';
+import BottomTabNavigation from './src/Navigation/BottomTabNavigation';
+import SignupScreen from './src/Screens/Auth/SignupScreen/SignupScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import InititalScreen from './src/Screens/Auth/InititalScreen/InititalScreen';
-import SignupScreen from './src/Screens/Auth/SignupScreen/SignupScreen';
 enableScreens();
 
 function App(): React.JSX.Element {
@@ -31,6 +32,11 @@ function App(): React.JSX.Element {
         <Stack.Screen
           name="Signup Screen"
           component={SignupScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Home"
+          component={BottomTabNavigation}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

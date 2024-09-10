@@ -1,6 +1,6 @@
 import {FC} from 'react';
 import {TextInput, View} from 'react-native';
-import {ITextInput} from '../../Constants/Interface';
+import {ITextInput} from '../../Interface/Interface';
 import {styles} from './style';
 
 const CustomTextInput: FC<ITextInput> = ({cstmstyle,children}) => {

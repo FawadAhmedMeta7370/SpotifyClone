@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import {styles} from './style';
 import {Image, Text, View} from 'react-native';
-import {ILogin} from '../../../Constants/Interface';
+import {ILogin} from '../../../Interface/Interface';
 import {images} from '../../../Assets/Images/Images';
 import CustomButton from '../../../Components/CustomButton/CustomButton';
 

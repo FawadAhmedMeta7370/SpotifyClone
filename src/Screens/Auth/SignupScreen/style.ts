@@ -6,15 +6,15 @@ export const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   image: {
-    height: 150,
-    width: 150,
+    height: 300,
+    width: 300,
   },
   imagecontainer: {
     height: 150,
     width: '100%',
     alignItems: 'center',
-    marginTop: '15%',
-    marginVertical: '10%',
+    marginTop: '5%',
+    marginVertical: '20%',
     justifyContent: 'flex-start',
   },
   text: {
