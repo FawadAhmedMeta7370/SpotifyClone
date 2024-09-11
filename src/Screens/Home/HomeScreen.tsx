@@ -7,7 +7,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import IconButton from '../../Components/IconButton/IconButton';
 import CustomTitle from '../../Components/CustomTitle/CustomTitle';
 
-const HomeScreen: FC<IHomeScreen> = () => {
+const HomeScreen: FC<IHomeScreen> = ({navigation}) => {
+  function PlayListNavigationHandler() {
+    navigation.navigate('PlayList Screen');
+  }
+
   return (
     <>
       <LinearGradient
@@ -24,16 +28,15 @@ const HomeScreen: FC<IHomeScreen> = () => {
                   <IconButton name="settings-outline" color="white" />
                 </View>
               </View>
-              <Card />
+              <Card onPress={PlayListNavigationHandler} />
             </View>
-
             <View>
               <CustomTitle>Trending Now</CustomTitle>
-              <Card />
+              <Card onPress={PlayListNavigationHandler} />
             </View>
             <View>
               <CustomTitle>Top picks for you</CustomTitle>
-              <Card />
+              <Card onPress={PlayListNavigationHandler} />
             </View>
           </View>
         </ScrollView>

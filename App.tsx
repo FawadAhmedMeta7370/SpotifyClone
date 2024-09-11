@@ -8,6 +8,7 @@ import BottomTabNavigation from './src/Navigation/BottomTabNavigation';
 import SignupScreen from './src/Screens/Auth/SignupScreen/SignupScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import InititalScreen from './src/Screens/Auth/InititalScreen/InititalScreen';
+import AuthNavigation from './src/Navigation/AuthNavigation';
 enableScreens();
 
 function App(): React.JSX.Element {
@@ -20,18 +21,8 @@ function App(): React.JSX.Element {
       }}>
       <Stack.Navigator>
         <Stack.Screen
-          name="Initial Screen"
-          component={InititalScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Login Screen"
-          component={Login}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Signup Screen"
-          component={SignupScreen}
+          name="Auth"
+          component={AuthNavigation}
           options={{headerShown: false}}
         />
         <Stack.Screen

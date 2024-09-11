@@ -9,7 +9,9 @@ const InititalScreen: FC<ILogin> = ({navigation}) => {
   function LoginNavigationHandler() {
     navigation.navigate('Login Screen');
   }
-
+  function SignupNavigationHandler() {
+    navigation.navigate('Signup Screen');
+  }
   return (
     <View style={styles.contianer}>
       <View style={styles.imagecontainer}>
@@ -19,7 +21,7 @@ const InititalScreen: FC<ILogin> = ({navigation}) => {
         <Text style={styles.text}>Millions of songs Free on Spotify.</Text>
       </View>
 
-      <CustomButton>Signup for free</CustomButton>
+      <CustomButton onPress={SignupNavigationHandler}>Signup for free</CustomButton>
 
       <CustomButton
         BTstyle={styles.BTstyle}

@@ -1,10 +1,11 @@
 import {FC} from 'react';
 import {styles} from './style';
-import {FlatList, Image, Pressable, Text, View} from 'react-native';
-import {ICard} from '../../Interface/Interface';
+import {FlatList, Image, Text, View} from 'react-native';
 import {images} from '../../Assets/Images/Images';
+import IconButton from '../IconButton/IconButton';
+import {IListCard} from '../../Interface/Interface';
 
-export const SDATA = [
+export const DATA = [
   {
     id: '1',
     title: 'Blinding Lights',
@@ -77,25 +78,34 @@ export const SDATA = [
   },
 ];
 
-const Card: FC<ICard> = ({onPress}) => {
+const ListCard: FC<IListCard> = () => {
   return (
     <FlatList
-      data={SDATA}
+      data={DATA}
       renderItem={({item}) => {
         return (
-          <Pressable onPress={onPress}>
-            <View style={styles.container}>
-              <Image style={styles.imageStyle} source={images.CardPic} />
-              <Text style={styles.textStyle}>{item.title}</Text>
-              <Text style={styles.textStyle}>{item.artist}</Text>
+          <View style={styles.rootContainer}>
+            <View style={{flexDirection: 'row'}}>
+              <View>
+                <Image style={styles.imageStyle} source={images.JB} />
+              </View>
+              <View style={{margin: '2%'}}>
+                <Text style={styles.titleTextStyle}>{item.title}</Text>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.lyricsText}>LYRICS</Text>
+                  <Text style={styles.textStyle}>{item.artist}</Text>
+                </View>
+              </View>
             </View>
-          </Pressable>
+            <View>
+              <IconButton name="ellipsis-vertical-outline" color="white" />
+            </View>
+          </View>
         );
       }}
       keyExtractor={item => item.id}
-      horizontal= {true}
     />
   );
 };
 
-export default Card;
+export default ListCard;

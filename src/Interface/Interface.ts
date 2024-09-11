@@ -24,18 +24,20 @@ export interface ILogin {
 export interface ITextInput {
   children?: string;
   cstmstyle?: object;
-  iconColor?: string | number | ColorValue
-  icon?: string
+  iconColor?: string | number | ColorValue;
+  icon?: string;
 }
 
 export interface ISignupScreen {
   navigation?: any;
 }
 
-export interface IHomeScreen {}
+export interface IHomeScreen {
+  navigation?: any;
+}
 
 export interface ICustomTitle {
-  cstmstyle?: object
+  cstmstyle?: object;
   children?: string;
 }
 
@@ -43,14 +45,23 @@ export interface IIconButton {
   name?: string | null | any;
   color?: string | number | ColorValue;
   onPress?: any;
+  cstmstyle?: object;
 }
 
-export interface ICard {}
+export interface ICard {
+  onPress?: any;
+}
 
 export interface ISearchScreen {}
 
 export interface ISearch {}
 
-export interface ISearchCard{
-  children?: string
+export interface ISearchCard {
+  text?: string;
 }
+
+export interface IPlaylistScreen {
+  navigation?: any;
+}
+
+export interface IListCard {}

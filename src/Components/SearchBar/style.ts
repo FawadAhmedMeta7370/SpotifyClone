@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const styeles = StyleSheet.create({
+export const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         borderRadius: 7,

@@ -2,6 +2,8 @@ import HomeScreen from '../Screens/Home/HomeScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SearchScreen from '../Screens/Search/SearchScreen';
+import PlaylistScreen from '../Screens/PlaylistScreen/PlaylistScreen';
+import HomeScreenPlayListStack from './HOMENativeStackNavigation';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,7 +14,7 @@ function BottomTabNavigation() {
         tabBarActiveTintColor: '#ffffff',
         tabBarInactiveTintColor: '#000000',
         tabBarActiveBackgroundColor: 'transparent',
-        tabBarLabelStyle: {fontSize: 14},
+        tabBarLabelStyle: {fontSize: 15},
         tabBarStyle: {
           backgroundColor: 'transparent',
           position: 'absolute',
@@ -25,13 +27,12 @@ function BottomTabNavigation() {
         headerShown: false,
       }}>
       <Tab.Screen
-        name="Home Screen"
-        component={HomeScreen}
-        options={{headerShown: false,
+        name="Hometab"
+        component={HomeScreenPlayListStack}
+        options={{
+          headerShown: false,
           tabBarIcon: ({color, size}) => {
-            return(
-              <Ionicons name='home' color={color} size={size}/>
-            )
+            return <Ionicons name="home" color={color} size={size} />;
           },
           tabBarLabel: 'Search',
         }}
@@ -39,11 +40,10 @@ function BottomTabNavigation() {
       <Tab.Screen
         name="Search Screen"
         component={SearchScreen}
-        options={{headerShown: false,
+        options={{
+          headerShown: false,
           tabBarIcon: ({color, size}) => {
-            return(
-              <Ionicons name='search' color={color} size={size}/>
-            )
+            return <Ionicons name="search" color={color} size={size} />;
           },
           tabBarLabel: 'Home',
         }}

@@ -1,35 +1,75 @@
 import {FC} from 'react';
-import {View} from 'react-native';
+import {SectionList, Text, View} from 'react-native';
 import {ISearchScreen} from '../../Interface/Interface';
 import CustomTitle from '../../Components/CustomTitle/CustomTitle';
-import SearchBar from '../../Components/Search/SearchBar';
+import SearchBar from '../../Components/SearchBar/SearchBar';
+import {styles} from './style';
 import SearchCard from '../../Components/SearchCard/SearchCard';
+
+const DATA = [
+  {
+    title: 'Your Top Genres',
+    data: [
+      'Pop',
+      'Rock',
+      // 'Hip-Hop',
+      // 'Jazz',
+      // 'Classical',
+      // 'Electronic',
+      // 'Country',
+      // 'Reggae',
+    ],
+  },
+  {
+    title: 'Browse All',
+    data: [
+      'Charts',
+      'Podcasts',
+      'Concerts',
+      'New Releases',
+      'Top 10',
+      'Made for You',
+      'Live Events',
+      'Discover',
+      'Workout',
+      'Mood',
+      'Chill',
+    ],
+  },
+];
 
 const SearchScreen: FC<ISearchScreen> = () => {
   return (
     <>
-      <View style={{flex: 1, backgroundColor: '#000000ea'}}>
+      <View style={styles.container}>
         <CustomTitle cstmstyle={{fontSize: 40}}>Search</CustomTitle>
         <SearchBar />
-        <View>
-          <CustomTitle>Your top genres</CustomTitle>
-          <View style={{flexDirection: 'row'}}>
-            <SearchCard>Pop</SearchCard>
-            <SearchCard>Bollywood</SearchCard>
-          </View>
-          <CustomTitle>Browse all</CustomTitle>
-          <View style={{flexDirection: 'row'}}>
-            <SearchCard>Podcasts</SearchCard>
-            <SearchCard>New Releases</SearchCard>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <SearchCard>Charts</SearchCard>
-            <SearchCard>Concerts</SearchCard>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <SearchCard>Made for You</SearchCard>
-            <SearchCard>At Home</SearchCard>
-          </View>
+        <View style={{margin: '0%'}}>
+          <SectionList
+            contentContainerStyle={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              // height: '100%'
+              // justifyContent: 'space-around',
+            }}
+            sections={DATA}
+            keyExtractor={(item, index) => item + index}
+            renderItem={({item}) => (
+              <View
+                style={{
+                  width: 190,
+                  height: 170,
+                  margin: 5,
+                }}>
+                <SearchCard text={item} />
+              </View>
+            )}
+            renderSectionHeader={({section: {title}}) => (
+              <View style={{marginRight: '20%'}}>
+                <CustomTitle cstmstyle={{marginLeft: '5%'}}>{title}</CustomTitle>
+              </View>
+            )}
+          />
         </View>
       </View>
     </>
