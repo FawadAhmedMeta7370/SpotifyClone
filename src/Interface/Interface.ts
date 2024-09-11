@@ -22,8 +22,10 @@ export interface ILogin {
 }
 
 export interface ITextInput {
-  children?: any;
+  children?: string;
   cstmstyle?: object;
+  iconColor?: string | number | ColorValue
+  icon?: string
 }
 
 export interface ISignupScreen {
@@ -33,6 +35,7 @@ export interface ISignupScreen {
 export interface IHomeScreen {}
 
 export interface ICustomTitle {
+  cstmstyle?: object
   children?: string;
 }
 
@@ -43,3 +46,11 @@ export interface IIconButton {
 }
 
 export interface ICard {}
+
+export interface ISearchScreen {}
+
+export interface ISearch {}
+
+export interface ISearchCard{
+  children?: string
+}

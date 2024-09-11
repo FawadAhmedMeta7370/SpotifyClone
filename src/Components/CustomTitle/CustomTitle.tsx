@@ -3,10 +3,10 @@ import {styles} from './style';
 import {Text, View} from 'react-native';
 import {ICustomTitle} from '../../Interface/Interface';
 
-const CustomTitle: FC<ICustomTitle> = ({children}) => {
+const CustomTitle: FC<ICustomTitle> = ({children, cstmstyle}) => {
   return (
     <View style={styles.root}>
-      <Text style={styles.titleText}>{children}</Text>
+      <Text style={[styles.titleText, cstmstyle]}>{children}</Text>
     </View>
   );
 };

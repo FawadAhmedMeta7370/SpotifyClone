@@ -1,6 +1,7 @@
 import HomeScreen from '../Screens/Home/HomeScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import SearchScreen from '../Screens/Search/SearchScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,6 +31,18 @@ function BottomTabNavigation() {
           tabBarIcon: ({color, size}) => {
             return(
               <Ionicons name='home' color={color} size={size}/>
+            )
+          },
+          tabBarLabel: 'Search',
+        }}
+      />
+      <Tab.Screen
+        name="Search Screen"
+        component={SearchScreen}
+        options={{headerShown: false,
+          tabBarIcon: ({color, size}) => {
+            return(
+              <Ionicons name='search' color={color} size={size}/>
             )
           },
           tabBarLabel: 'Home',

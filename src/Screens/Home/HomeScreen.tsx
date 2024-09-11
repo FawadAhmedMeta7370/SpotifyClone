@@ -10,10 +10,10 @@ import CustomTitle from '../../Components/CustomTitle/CustomTitle';
 const HomeScreen: FC<IHomeScreen> = () => {
   return (
     <>
-      <ScrollView>
-        <LinearGradient
-          style={{flex: 1}}
-          colors={['#858181', '#4e4c4c', '#161515']}>
+      <LinearGradient
+        style={{flex: 1}}
+        colors={['#858181', '#4e4c4c', '#161515']}>
+        <ScrollView>
           <View style={styles.rootContainer}>
             <View>
               <View style={styles.titleIcon}>
@@ -36,8 +36,8 @@ const HomeScreen: FC<IHomeScreen> = () => {
               <Card />
             </View>
           </View>
-        </LinearGradient>
-      </ScrollView>
+        </ScrollView>
+      </LinearGradient>
     </>
   );
 };
