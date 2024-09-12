@@ -1,9 +1,9 @@
 import {FC} from 'react';
 import {styles} from './style';
-import {FlatList, Image, Text, View} from 'react-native';
 import {images} from '../../Assets/Images/Images';
 import IconButton from '../IconButton/IconButton';
 import {IListCard} from '../../Interface/Interface';
+import {FlatList, Image, Pressable, Text, View} from 'react-native';
 
 export const DATA = [
   {
@@ -78,29 +78,31 @@ export const DATA = [
   },
 ];
 
-const ListCard: FC<IListCard> = () => {
+const ListCard: FC<IListCard> = ({onPress}) => {
   return (
     <FlatList
       data={DATA}
       renderItem={({item}) => {
         return (
-          <View style={styles.rootContainer}>
-            <View style={{flexDirection: 'row'}}>
-              <View>
-                <Image style={styles.imageStyle} source={images.JB} />
-              </View>
-              <View style={{margin: '2%'}}>
-                <Text style={styles.titleTextStyle}>{item.title}</Text>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.lyricsText}>LYRICS</Text>
-                  <Text style={styles.textStyle}>{item.artist}</Text>
+          <Pressable onPress={onPress} style={({pressed})=>pressed && {opacity:0.5}}>
+            <View style={styles.rootContainer}>
+              <View style={{flexDirection: 'row'}}>
+                <View>
+                  <Image style={styles.imageStyle} source={images.JB} />
+                </View>
+                <View style={{margin: '2%'}}>
+                  <Text style={styles.titleTextStyle}>{item.title}</Text>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.lyricsText}>LYRICS</Text>
+                    <Text style={styles.textStyle}>{item.artist}</Text>
+                  </View>
                 </View>
               </View>
+              <View>
+                <IconButton name="ellipsis-vertical-outline" color="white" />
+              </View>
             </View>
-            <View>
-              <IconButton name="ellipsis-vertical-outline" color="white" />
-            </View>
-          </View>
+          </Pressable>
         );
       }}
       keyExtractor={item => item.id}

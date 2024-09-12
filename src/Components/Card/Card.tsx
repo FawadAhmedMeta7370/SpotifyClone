@@ -1,6 +1,6 @@
 import {FC} from 'react';
 import {styles} from './style';
-import {FlatList, Image, Pressable, Text, View} from 'react-native';
+import {FlatList, Image, Pressable, Text, TouchableOpacity, View} from 'react-native';
 import {ICard} from '../../Interface/Interface';
 import {images} from '../../Assets/Images/Images';
 
@@ -83,13 +83,13 @@ const Card: FC<ICard> = ({onPress}) => {
       data={SDATA}
       renderItem={({item}) => {
         return (
-          <Pressable onPress={onPress}>
-            <View style={styles.container}>
+          <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
+            <View style={ [styles.container]}>
               <Image style={styles.imageStyle} source={images.CardPic} />
               <Text style={styles.textStyle}>{item.title}</Text>
               <Text style={styles.textStyle}>{item.artist}</Text>
             </View>
-          </Pressable>
+          </TouchableOpacity>
         );
       }}
       keyExtractor={item => item.id}

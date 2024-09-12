@@ -39,6 +39,7 @@ export interface IHomeScreen {
 export interface ICustomTitle {
   cstmstyle?: object;
   children?: string;
+  containerstyle?: object;
 }
 
 export interface IIconButton {
@@ -46,6 +47,7 @@ export interface IIconButton {
   color?: string | number | ColorValue;
   onPress?: any;
   cstmstyle?: object;
+  cstmsize?: number
 }
 
 export interface ICard {
@@ -64,4 +66,17 @@ export interface IPlaylistScreen {
   navigation?: any;
 }
 
-export interface IListCard {}
+export interface IListCard {
+  onPress?: any;
+}
+
+export interface IMusicPlayerScreen {
+  navigation?: any;
+}
+
+export interface ILogoButton {
+  source?: ImageSourcePropType;
+  onPress?: any
+  cstmstyle?: object
+  containerstyle?: object
+}

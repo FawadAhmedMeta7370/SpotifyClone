@@ -2,18 +2,15 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 import {enableScreens} from 'react-native-screens';
-import {NavigationContainer} from '@react-navigation/native';
-import Login from './src/Screens/Auth/LoginScreen/LoginScreen';
-import BottomTabNavigation from './src/Navigation/BottomTabNavigation';
-import SignupScreen from './src/Screens/Auth/SignupScreen/SignupScreen';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import InititalScreen from './src/Screens/Auth/InititalScreen/InititalScreen';
 import AuthNavigation from './src/Navigation/AuthNavigation';
+import {NavigationContainer} from '@react-navigation/native';
+import BottomTabNavigation from './src/Navigation/BottomTabNavigation';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 enableScreens();
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator();
-
+// return <></>
   return (
     <NavigationContainer
       onReady={() => {

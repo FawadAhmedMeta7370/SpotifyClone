@@ -4,21 +4,23 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000000ea',
-    height: 950
   },
   imagecontainer: {
     marginTop: '5%',
     width: '100%',
     height: '40%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   image: {
-    height: '75%',
-    width: '60%'
+    height: '40%',
+    width: '70%',
+    alignItems: 'center',
+    marginVertical: '5%',
+    marginLeft: '15%',
   },
   textStyle: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 17,
     marginLeft: 10,
   },
   logoStyle: {
@@ -31,7 +33,6 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '900',
     textAlignVertical: 'center',
-    margin: 10,
   },
   playLogoStyle: {
     width: 80,
@@ -42,4 +43,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  pressed: {
+    opacity: 0.5
+  }
 });
