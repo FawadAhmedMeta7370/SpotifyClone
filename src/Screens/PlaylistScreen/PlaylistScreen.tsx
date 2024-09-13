@@ -5,7 +5,6 @@ import {images} from '../../Assets/Images/Images';
 import ListCard from '../../Components/ListCard/ListCard';
 import {IPlaylistScreen} from '../../Interface/Interface';
 import IconButton from '../../Components/IconButton/IconButton';
-import {ScrollView} from 'react-native-gesture-handler';
 
 const PlaylistScreen: FC<IPlaylistScreen> = ({navigation}) => {
   function backButtonHandler() {

@@ -38,7 +38,7 @@ const DATA = [
   },
 ];
 
-const SearchScreen: FC<ISearchScreen> = () => {
+const SearchScreen: FC<ISearchScreen> = ({navigation}) => {
   return (
     <>
       <View style={styles.container}>

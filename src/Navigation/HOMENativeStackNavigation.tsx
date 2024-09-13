@@ -1,10 +1,9 @@
-import HomeScreen from '../Screens/Home/HomeScreen';
-import PlaylistScreen from '../Screens/PlaylistScreen/PlaylistScreen';
-// import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import MusicPlayerScreen from '../Screens/MusicPlayerScreen/MusicPlayerScreen';
-import {createStackNavigator} from '@react-navigation/stack';
 import 'react-native-gesture-handler';
+import HomeScreen from '../Screens/Home/HomeScreen';
+import {createStackNavigator} from '@react-navigation/stack';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import PlaylistScreen from '../Screens/PlaylistScreen/PlaylistScreen';
+import MusicPlayerScreen from '../Screens/MusicPlayerScreen/MusicPlayerScreen';
 
 // const Stack = createNativeStackNavigator();
 const Stack = createStackNavigator();
@@ -34,7 +33,7 @@ function HomeScreenPlayListStack() {
             headerTransparent: true,
             headerTintColor: '#fff',
             title: '',
-            presentation: 'modal'
+            presentation: 'modal',
           }}
         />
       </Stack.Navigator>

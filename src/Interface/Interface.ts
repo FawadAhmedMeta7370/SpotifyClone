@@ -47,19 +47,22 @@ export interface IIconButton {
   color?: string | number | ColorValue;
   onPress?: any;
   cstmstyle?: object;
-  cstmsize?: number
+  cstmsize?: number;
 }
 
 export interface ICard {
   onPress?: any;
 }
 
-export interface ISearchScreen {}
+export interface ISearchScreen {
+  navigation?: any;
+}
 
 export interface ISearch {}
 
 export interface ISearchCard {
   text?: string;
+  onPress?: any;
 }
 
 export interface IPlaylistScreen {
@@ -76,7 +79,7 @@ export interface IMusicPlayerScreen {
 
 export interface ILogoButton {
   source?: ImageSourcePropType;
-  onPress?: any
-  cstmstyle?: object
-  containerstyle?: object
+  onPress?: any;
+  cstmstyle?: object;
+  containerstyle?: object;
 }
