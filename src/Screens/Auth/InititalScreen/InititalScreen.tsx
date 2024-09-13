@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import {FC, useEffect} from 'react';
 import {styles} from './style';
 import {Image, Text, View} from 'react-native';
 import {ILogin} from '../../../Interface/Interface';
@@ -6,6 +6,7 @@ import {images} from '../../../Assets/Images/Images';
 import CustomButton from '../../../Components/CustomButton/CustomButton';
 
 const InititalScreen: FC<ILogin> = ({navigation}) => {
+
   function LoginNavigationHandler() {
     navigation.navigate('Login Screen');
   }
@@ -21,7 +22,9 @@ const InititalScreen: FC<ILogin> = ({navigation}) => {
         <Text style={styles.text}>Millions of songs Free on Spotify.</Text>
       </View>
 
-      <CustomButton onPress={SignupNavigationHandler}>Signup for free</CustomButton>
+      <CustomButton onPress={SignupNavigationHandler}>
+        Signup for free
+      </CustomButton>
 
       <CustomButton
         BTstyle={styles.BTstyle}
