@@ -50,8 +50,26 @@ export interface IIconButton {
   cstmsize?: number;
 }
 
+interface Artist {
+  id: string;
+  name: string;
+  images: {url: string; height: number; width: number}[];
+}
+interface Playlist {
+  id: string;
+  name: string;
+  images: {url: string; height: number; width: number}[];
+  description: string;
+}
 export interface ICard {
-  onPress?: any;
+  onPress?: () => void;
+  data?: (Artist | Playlist)[];
+  item?: any;
+  imageUrl?: NullableImageSource;
+  ArtistName?: string;
+  AlbumName?: string;
+  SongName?: string;
+  type?: 'artist' | 'trending' | 'top';
 }
 
 export interface ISearchScreen {
@@ -63,6 +81,7 @@ export interface ISearch {}
 export interface ISearchCard {
   text?: string;
   onPress?: any;
+  cstmstyle?: any;
 }
 
 export interface IPlaylistScreen {
@@ -82,4 +101,10 @@ export interface ILogoButton {
   onPress?: any;
   cstmstyle?: object;
   containerstyle?: object;
+}
+
+export interface ICardList {
+  type?: 'artist' | 'trending' | 'top';
+  data?: any;
+  onPress?: () => void;
 }
