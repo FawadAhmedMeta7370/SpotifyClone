@@ -6,13 +6,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import CardList from '../../Components/CardList/CardList';
 import IconButton from '../../Components/IconButton/IconButton';
 import CustomTitle from '../../Components/CustomTitle/CustomTitle';
-import {fetchSpotifyToken, GetArtist, GetTopPicks, GetTracks} from '../../API/AcessToken';
+import {
+  fetchSpotifyToken,
+  GetArtist,
+  GetTopPicks,
+  GetTracks,
+} from '../../API/AcessToken';
 
 const HomeScreen: FC<IHomeScreen> = ({navigation}) => {
-  function PlayListNavigationHandler() {
-    navigation.navigate('PlayList Screen');
-  }
-
   const [ArtistData, setArtistsData] = useState();
   const [tracksData, setTracksData] = useState();
   const [Recomendations, setRecomendations] = useState();
@@ -20,9 +21,10 @@ const HomeScreen: FC<IHomeScreen> = ({navigation}) => {
   async function fetchArtists() {
     const Token = await fetchSpotifyToken();
     try {
-    const response = await GetArtist();
-    setArtistsData(response?.data.albums.items);
-    console.log("response?.data.albums.items :", response?.data.albums.items);
+      const response = await GetArtist();
+      setArtistsData(response?.data.albums.items);
+      // console.log("ArtistData.id ==> " , response?.data.albums.items.map( id => id.id ));
+      // console.log("response?.data.albums.items :", response?.data.albums.items);
     } catch (error) {
       console.error('Error fetching artists:', error);
     }
@@ -32,7 +34,11 @@ const HomeScreen: FC<IHomeScreen> = ({navigation}) => {
     try {
       const tracks = await GetTracks();
       if (tracks) {
-        setTracksData(tracks.data.tracks);
+        const filteredTracks = tracks.data.tracks.filter(
+          (track: {preview_url: any}) => track.preview_url,
+        );
+
+        setTracksData(filteredTracks);
       }
     } catch (error) {
       console.error('Error fetching trending songs:', error);
@@ -41,13 +47,20 @@ const HomeScreen: FC<IHomeScreen> = ({navigation}) => {
 
   async function fetchTopPicks() {
     try {
-      const response = await GetTopPicks()
-      const TopPicks =  response?.data.tracks
+      const response = await GetTopPicks();
+      const TopPicks = response?.data.tracks;
+
       if (response) {
-        setRecomendations(TopPicks)
+        // Filter Top Picks to only include those with a preview_url
+        const filteredTopPicks = TopPicks.filter(
+          (track: {preview_url: any}) => track.preview_url,
+        );
+
+        // Set the filtered recommendations data
+        setRecomendations(filteredTopPicks);
       }
     } catch (error) {
-      console.error('Error fetching recomendations:', error);
+      console.error('Error fetching recommendations:', error);
     }
   }
 
@@ -56,6 +69,18 @@ const HomeScreen: FC<IHomeScreen> = ({navigation}) => {
     fetchTrending();
     fetchTopPicks();
   }, []);
+
+  function PlayListNavigationHandler(id: any) {
+    navigation.navigate('PlayList Screen', {
+      albumid: id,
+    });
+  }
+
+  function MusicPlayScreenNavigationHandler(id: any) {
+    navigation.navigate('MusicPlay Screen', {
+      songId: id,
+    });
+  }
 
   return (
     <>
@@ -73,15 +98,27 @@ const HomeScreen: FC<IHomeScreen> = ({navigation}) => {
                   <IconButton name="settings-outline" color="white" />
                 </View>
               </View>
-              <CardList type='artist' data={ArtistData} onPress={PlayListNavigationHandler}/>
+              <CardList
+                type="artist"
+                data={ArtistData}
+                onPress={(id: any) => PlayListNavigationHandler(id)}
+              />
             </View>
             <View>
               <CustomTitle>Trending Now</CustomTitle>
-              <CardList type='trending' data={tracksData} onPress={PlayListNavigationHandler}/>
+              <CardList
+                type="trending"
+                data={tracksData}
+                onPress={(id: any) => MusicPlayScreenNavigationHandler(id)}
+              />
             </View>
             <View>
               <CustomTitle>Top picks for you</CustomTitle>
-              <CardList type='top' data={Recomendations} onPress={PlayListNavigationHandler}/>
+              <CardList
+                type="top"
+                data={Recomendations}
+                onPress={(id: any) => MusicPlayScreenNavigationHandler(id)}
+              />
             </View>
           </View>
         </ScrollView>

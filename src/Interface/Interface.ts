@@ -1,4 +1,4 @@
-import {ColorValue, ImageSourcePropType} from 'react-native';
+import {ColorValue, GestureResponderEvent, ImageSourcePropType} from 'react-native';
 // import {NavigationAction, NavigationProp, ParamListBase} from '@react-navigation/native';
 
 export interface ILogin {
@@ -37,6 +37,8 @@ export interface IHomeScreen {
 }
 
 export interface ICustomTitle {
+  fs?: object
+  text?: string
   cstmstyle?: object;
   children?: string;
   containerstyle?: object;
@@ -86,14 +88,24 @@ export interface ISearchCard {
 
 export interface IPlaylistScreen {
   navigation?: any;
+  route?: any
+}
+
+export interface IList {
+  data?: any
+  share?: ((event: GestureResponderEvent) => void)
+  onPress?: any;
 }
 
 export interface IListCard {
+  share?: ((event: GestureResponderEvent) => void)
+  item?: any
   onPress?: any;
 }
 
 export interface IMusicPlayerScreen {
   navigation?: any;
+  route?: any
 }
 
 export interface ILogoButton {
@@ -106,5 +118,5 @@ export interface ILogoButton {
 export interface ICardList {
   type?: 'artist' | 'trending' | 'top';
   data?: any;
-  onPress?: () => void;
+  onPress?: ((event: GestureResponderEvent) => void);
 }

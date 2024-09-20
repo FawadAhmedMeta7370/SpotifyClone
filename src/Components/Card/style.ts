@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
   },
   textStyle: {
     color: 'white',
+    width: 175,
     fontSize: 16,
   },
 });

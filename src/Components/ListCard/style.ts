@@ -6,8 +6,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: 5,
-    // marginBottom:25
-    // paddingBottom: 20
   },
   imageStyle: {
     width: 65,
@@ -23,6 +21,7 @@ export const styles = StyleSheet.create({
     textAlignVertical: 'center',
     color: 'white',
     fontSize: 20,
+    width: 250,
     fontWeight: '900',
   },
   lyricsText: {
