@@ -78,11 +78,16 @@ const MusicPlayerScreen: FC<IMusicPlayerScreen> = ({route, navigation}) => {
     if (nextIndex >= 0) {
       setCurrentIndex(nextIndex);
       getSongDetails(songsList[nextIndex].id);
-      // setPause(false);
     } else {
       console.log('Reached end of playlist');
     }
   };
+
+  const handleShuffleTrack = () => {
+    const randomIndex = Math.floor(Math.random() * songsList.length); 
+    setCurrentIndex(randomIndex);
+    getSongDetails(songsList[randomIndex].id); 
+  }
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null); // Ref to store the interval
 
@@ -273,11 +278,8 @@ const MusicPlayerScreen: FC<IMusicPlayerScreen> = ({route, navigation}) => {
           </View>
         </View>
         <View style={styles.songlogos}>
-          <LogoButton source={images.ShuffleLogo} />
-          <LogoButton
-            onPress={handlePreviousTrack}
-            source={images.PreviousSongLogo}
-          />
+          <LogoButton onPress={handleShuffleTrack} source={images.ShuffleLogo} />
+          <LogoButton onPress={handlePreviousTrack} source={images.PreviousSongLogo} />
           {renderBtn()}
           <LogoButton onPress={handleNextTrack} source={images.NextSongLogo} />
           <LogoButton source={images.LoopLogo} />

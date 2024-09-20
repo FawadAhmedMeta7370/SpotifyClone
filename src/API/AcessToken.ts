@@ -1,5 +1,45 @@
 import axios from 'axios';
+import Store from '../Redux/Store/Store';
+import { logOut } from '../Redux/Slices/AuthSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+const axiosInstance = axios.create({
+  baseURL: 'https://accounts.spotify.com/api',
+  // other configurations
+})
+
+const APIInstance = axios.create({
+  baseURL: 'https://api.spotify.com/v1',
+})
+console.log("Store.getState()?.auth?.accessToken", Store.getState());
+
+APIInstance.interceptors.request.use(
+  (config) => {
+    // Get the latest accessToken from the Redux store
+    const token = Store.getState()?.auth?.accessToken;
+
+    if (token) {
+      // If token exists, set it in the Authorization header
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error); // Handle any request errors
+  }
+);
+
+APIInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      Store.dispatch(logOut())
+    }
+    return Promise.reject(error)
+  },
+)
 
 export const fetchSpotifyToken = async () => {
   try {
@@ -10,16 +50,9 @@ export const fetchSpotifyToken = async () => {
 
     const accessToken = await AsyncStorage.getItem('access_token');
 
-    console.log('This is my Access Token (Valid for 1 hour) :', accessToken);
-
-    if (accessToken) {
-      return accessToken;
-    }
-
-    if (!accessToken) {
-      const response = await axios.post(
-        'https://accounts.spotify.com/api/token',
-        params.toString(), // Ensure it's properly stringified
+      const response = await axiosInstance.post(
+        '/token',
+        params.toString(),
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded', // Required for form data
@@ -32,7 +65,7 @@ export const fetchSpotifyToken = async () => {
 
       await AsyncStorage.setItem('access_token', access_token); // Save the token in AsyncStorage (for React Native)
       return access_token;
-    }
+    // }
   } catch (error: any) {
     console.error(
       'Error fetching access token:',
@@ -43,16 +76,9 @@ export const fetchSpotifyToken = async () => {
 
 export const GetCategories = async () => {
   try {
-    const accesstoken = await AsyncStorage.getItem('access_token');
-    // console.log('This is accesstoken fetched from above access token fetching function ========>', accesstoken);
-
-    const Categories = await axios.get(
-      'https://api.spotify.com/v1/browse/categories',
-      {
-        headers: {Authorization: 'Bearer ' + accesstoken},
-      },
+    const Categories = await APIInstance.get(
+      '/browse/categories',
     );
-    // console.log('Categories ========>', JSON.stringify(Categories,null,2));
     return Categories;
   } catch (error) {
     console.log('error', error);
@@ -61,14 +87,9 @@ export const GetCategories = async () => {
 
 export const GetGenres = async () => {
   try {
-    const accesstoken = await AsyncStorage.getItem('access_token');
-    const Genres = await axios.get(
-      'https://api.spotify.com/v1/recommendations/available-genre-seeds',
-      {
-        headers: {Authorization: 'Bearer ' + accesstoken},
-      },
+    const Genres = await APIInstance.get(
+      '/recommendations/available-genre-seeds',
     );
-    // console.log('Genres ========>', Genres);
     return Genres;
   } catch (error) {
     console.log('error', error);
@@ -77,13 +98,8 @@ export const GetGenres = async () => {
 
 export const GetArtist = async () => {
   try {
-    const accesstoken = await AsyncStorage.getItem('access_token');
-    // console.log(accesstoken);
-    const response = await axios.get(
-      'https://api.spotify.com/v1/browse/new-releases',
-      {
-        headers: {Authorization: 'Bearer ' + accesstoken},
-      },
+    const response = await APIInstance.get(
+      '/browse/new-releases',
     );
     return response;
   } catch (error) {
@@ -93,12 +109,8 @@ export const GetArtist = async () => {
 
 export const GetTracks = async () => {
   try {
-    const accesstoken = await AsyncStorage.getItem('access_token');
-    const Tracks = await axios.get(
-      'https://api.spotify.com/v1/tracks?ids=7ouMYWpwJ422jRcDASZB7P%2C4VqPOruhp5EdPBeR92t6lQ%2C2takcwOaAZWiXQijPHIx7B',
-      {
-        headers: {Authorization: 'Bearer ' + accesstoken},
-      },
+    const Tracks = await APIInstance.get(
+      '/tracks?ids=7ouMYWpwJ422jRcDASZB7P%2C4VqPOruhp5EdPBeR92t6lQ%2C2takcwOaAZWiXQijPHIx7B',
     );
 
     return Tracks;
@@ -109,12 +121,8 @@ export const GetTracks = async () => {
 
 export const GetTopPicks = async () => {
   try {
-    const accesstoken = await AsyncStorage.getItem('access_token');
-    const response = await axios.get(
-      'https://api.spotify.com/v1/recommendations?seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA',
-      {
-        headers: {Authorization: 'Bearer ' + accesstoken},
-      },
+    const response = await APIInstance.get(
+      '/recommendations?seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA',
     );
     return response;
   } catch (error) {
@@ -124,12 +132,8 @@ export const GetTopPicks = async () => {
 
 export const GetAlbumSongs = async (albumId: string | undefined) => {
   try {
-    const accesstoken = await AsyncStorage.getItem('access_token');
-    const response = await axios.get(
-      `https://api.spotify.com/v1/albums/${albumId}`,
-      {
-        headers: {Authorization: 'Bearer ' + accesstoken},
-      },
+    const response = await APIInstance.get(
+      `/albums/${albumId}`,
     );
     // const Preview = response.data.items.filter((track: any) => track.preview_url);
     // return { ...response, items: Preview };
@@ -141,12 +145,8 @@ export const GetAlbumSongs = async (albumId: string | undefined) => {
 
 export const GetSong = async (songid: string | undefined) => {
   try {
-    const accesstoken = await AsyncStorage.getItem('access_token');
-    const response = await axios.get(
-      `https://api.spotify.com/v1/tracks/${songid}`,
-      {
-        headers: {Authorization: 'Bearer ' + accesstoken},
-      },
+    const response = await APIInstance.get(
+      `/tracks/${songid}`,
     );
     return response;
   } catch (error) {

@@ -1,17 +1,30 @@
-import {FC} from 'react';
+import {FC, useEffect} from 'react';
 import {styles} from './style';
 import {Image, Text, View} from 'react-native';
 import {ILogin} from '../../../Interface/Interface';
 import {images} from '../../../Assets/Images/Images';
 import CustomTextInput from '../../../Components/CustomTextInput/CustomTextInput';
 import CustomButton from '../../../Components/CustomButton/CustomButton';
+import { useDispatch } from 'react-redux';
+import { fetchSpotifyToken } from '../../../API/AcessToken';
+import { logIn } from '../../../Redux/Slices/AuthSlice';
 
 const Login: FC<ILogin> = ({navigation}) => {
+
+  const dispatch = useDispatch()
+
+  async function tokenFetcher() {
+    const token = await fetchSpotifyToken()
+    console.log("Token fethced at login screen +++++++> " ,token);
+    
+    dispatch(logIn(token))
+  }
+
   function SignupNavigationHandler() {
     navigation.navigate('Signup Screen');
   }
   function HomeNavigationHandler() {
-    navigation.navigate('Home');    
+    tokenFetcher()
   }
   return (
     <View style={styles.contianer}>

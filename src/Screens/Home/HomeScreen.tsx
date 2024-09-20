@@ -12,14 +12,21 @@ import {
   GetTopPicks,
   GetTracks,
 } from '../../API/AcessToken';
+import { useSelector } from 'react-redux';
 
 const HomeScreen: FC<IHomeScreen> = ({navigation}) => {
+
+  const auth = useSelector((state: any) => state.auth)
+
+  console.log("auth object ==> " ,auth);
+  
+
   const [ArtistData, setArtistsData] = useState();
   const [tracksData, setTracksData] = useState();
   const [Recomendations, setRecomendations] = useState();
 
   async function fetchArtists() {
-    const Token = await fetchSpotifyToken();
+    // const Token = await fetchSpotifyToken();
     try {
       const response = await GetArtist();
       setArtistsData(response?.data.albums.items);
