@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Store from '../Redux/Store/Store';
+import { store } from '../Redux/Store/Store';
 import { logOut } from '../Redux/Slices/AuthSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -12,12 +12,12 @@ const axiosInstance = axios.create({
 const APIInstance = axios.create({
   baseURL: 'https://api.spotify.com/v1',
 })
-console.log("Store.getState()?.auth?.accessToken", Store.getState());
+console.log("Store.getState()?.auth?.accessToken", store.getState());
 
 APIInstance.interceptors.request.use(
   (config) => {
     // Get the latest accessToken from the Redux store
-    const token = Store.getState()?.auth?.accessToken;
+    const token = store.getState()?.auth?.accessToken;
 
     if (token) {
       // If token exists, set it in the Authorization header
@@ -35,7 +35,7 @@ APIInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      Store.dispatch(logOut())
+      store.dispatch(logOut())
     }
     return Promise.reject(error)
   },

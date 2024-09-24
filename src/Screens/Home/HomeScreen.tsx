@@ -102,7 +102,7 @@ const HomeScreen: FC<IHomeScreen> = ({navigation}) => {
                 <View style={styles.iconContainer}>
                   <IconButton name="notifications-outline" color="white" />
                   <IconButton name="timer-outline" color="white" />
-                  <IconButton name="settings-outline" color="white" />
+                  <IconButton name="log-out-outline" color="white" />
                 </View>
               </View>
               <CardList

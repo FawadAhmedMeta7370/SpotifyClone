@@ -23,6 +23,7 @@ const Login: FC<ILogin> = ({navigation}) => {
   function SignupNavigationHandler() {
     navigation.navigate('Signup Screen');
   }
+  
   function HomeNavigationHandler() {
     tokenFetcher()
   }
