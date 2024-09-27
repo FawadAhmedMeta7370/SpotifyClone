@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     width: '90%',
     alignItems: 'center',
     marginTop: '15%',
-    marginLeft: '5%'
+    marginLeft: '5%', 
   },
   headercentercontentcontainer: {
     justifyContent: 'center',

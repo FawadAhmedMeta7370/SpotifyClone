@@ -43,7 +43,7 @@ const MusicPlayerScreen: FC<IMusicPlayerScreen> = ({route, navigation}) => {
             }
 
             console.log('duration in seconds: ' + track?.getDuration());
-
+            
             track?.play(success => {
               if (success) {
                 console.log('successfully finished playing');

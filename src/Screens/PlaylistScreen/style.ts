@@ -3,20 +3,22 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000000ea',
+    // backgroundColor: '#000000ea',
+    paddingHorizontal: 5,
+    marginBottom: '75%',
   },
   imagecontainer: {
     marginTop: '5%',
     width: '100%',
-    height: '40%',
+    height: '30%',
     alignItems: 'center',
   },
   image: {
-    height: '40%',
-    width: '70%',
+    height: '90%',
+    width: '80%',
+    alignSelf: 'center',
     alignItems: 'center',
     marginVertical: '5%',
-    marginLeft: '15%',
   },
   textStyle: {
     color: 'white',
@@ -44,6 +46,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   pressed: {
-    opacity: 0.5
+    opacity: 0.5,
+  },
+  HeaderStyle: {
+    alignItems: 'center'
   }
 });

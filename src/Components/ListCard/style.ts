@@ -2,6 +2,7 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   rootContainer: {
+    // height: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -25,7 +26,7 @@ export const styles = StyleSheet.create({
     fontWeight: '900',
   },
   lyricsText: {
-    backgroundColor: '#c5c4c4',
+    backgroundColor: 'hsl(0, 1%, 77%)',
     color: 'black',
     paddingHorizontal: 3,
     fontSize: 10,

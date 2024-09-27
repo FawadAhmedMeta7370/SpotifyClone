@@ -1,12 +1,20 @@
 import {styles} from './style';
 import Share from 'react-native-share';
 import List from '../../Components/List/List';
-import {Image, Text, View} from 'react-native';
 import {images} from '../../Assets/Images/Images';
 import {GetAlbumSongs} from '../../API/AcessToken';
 import {IPlaylistScreen} from '../../Interface/Interface';
+import {Image, ScrollView, Text, View} from 'react-native';
 import {FC, useEffect, useLayoutEffect, useState} from 'react';
 import IconButton from '../../Components/IconButton/IconButton';
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import Animated, {
+  interpolate,
+  interpolateColor,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 
 interface Song {
   id: any;
@@ -23,6 +31,7 @@ interface Songs {
 
 const PlaylistScreen: FC<IPlaylistScreen> = ({route, navigation}) => {
   const [songs, setsongs] = useState<Songs | null>(null);
+
   const [artistName, setArtistName] = useState<string>('');
 
   const {albumid} = route.params;
@@ -71,25 +80,9 @@ const PlaylistScreen: FC<IPlaylistScreen> = ({route, navigation}) => {
     });
   }
 
-  console.log("songs?.tracks.items0", songs?.tracks.items);
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => {
-        return (
-          <IconButton
-            onPress={backButtonHandler}
-            name="chevron-back-outline"
-            color="white"
-            cstmstyle={{marginHorizontal: 0}}
-          />
-        );
-      },
-    });
-  }, []);
-
   const [formattedTime, setFormattedTime] = useState('');
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     if (!songs || songs.tracks.items.length === 0) return;
 
     const totalDurationMs = songs?.tracks.items.reduce(
@@ -106,8 +99,6 @@ const PlaylistScreen: FC<IPlaylistScreen> = ({route, navigation}) => {
     setFormattedTime(formatted);
   }, [songs]);
 
-  console.log('songs ==========>>>>', songs);
-
   function share() {
     const options = {
       title: 'Sharing Song',
@@ -123,42 +114,141 @@ const PlaylistScreen: FC<IPlaylistScreen> = ({route, navigation}) => {
       });
   }
 
-  return (
-    <View style={styles.container}>
-      {/* <View style={styles.imagecontainer}> */}
-      <Image style={styles.image} source={images.CardPic} />
-      {/* </View> */}
-      {artistName && (
-        <Text style={styles.textStyle}>
-          Tune in to Top Tracks from {artistName}
-        </Text>
-      )}
-      <View style={{flexDirection: 'row'}}>
-        <Image style={styles.logoStyle} source={images.SpotifyGreenLogo} />
-        <Text style={styles.spotifyText}>Spotify</Text>
-      </View>
-      <View>
-        <Text style={styles.textStyle}>Duratoin. {formattedTime} </Text>
-        {/* <Text style={styles.textStyle}>Tracks. {} </Text> */}
-      </View>
-      <View style={styles.logoscontainer}>
-        <View style={{flexDirection: 'row'}}>
-          <IconButton
-            cstmstyle={{marginHorizontal: 10}}
-            name="heart-outline"
-            color={'white'}
-          />
-          <IconButton name="ellipsis-vertical-outline" color={'white'} />
-        </View>
-        <Image style={styles.playLogoStyle} source={images.PlayGreenLogo} />
-      </View>
+  const Y = useSharedValue(0);
 
+  const scrollHandler = useAnimatedScrollHandler(event => {
+    Y.value = event.contentOffset.y;
+  });
+
+  const animatedViewStyle = useAnimatedStyle(() => {
+    const translateY = interpolate(Y.value, [0, 200], [35, 160], 'clamp');
+    return {
+      translateY,
+    };
+  });
+
+  const animatedImageStyle = useAnimatedStyle(() => {
+    const scale = interpolate(Y.value * 0.5, [0, 100], [1, 0.4], 'clamp');
+    const opacity = interpolate(Y.value, [100, 225], [1, 0], 'clamp');
+    // const translateY = interpolate(Y.value * 0.09, [0, 50], [1, 0.3], 'clamp');
+
+    return {
+      transform: [{scale}],
+      opacity,
+    };
+  });
+
+  const animatedHeaderStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(Y.value, [150, 200], [0, 1], 'clamp');
+    return {
+      opacity,
+    };
+  });
+
+  const animatedBackgroundStyle = useAnimatedStyle(() => {
+    const backgroundColor = interpolateColor(
+      Y.value,
+      [150, 200], 
+      ['transparent', '#2b2929f7'],
+    );
+    return {backgroundColor};
+  });
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => {
+        return (
+          <Animated.View
+            style={[
+              {
+                paddingVertical: '2%',
+                flexDirection: 'row',
+                alignItems: 'center',
+              },
+              animatedBackgroundStyle,
+            ]}>
+            <View style={{margin: '2%'}}>
+              <IconButton
+                onPress={backButtonHandler}
+                name="chevron-back-outline"
+                color="white"
+                cstmstyle={{marginHorizontal: 0}}
+              />
+            </View>
+            <Animated.View style={[styles.HeaderStyle, animatedHeaderStyle]}>
+              <Animated.Text
+                style={{color: 'white', fontSize: 25, marginLeft: '10%'}}>
+                {songs?.name}
+              </Animated.Text>
+            </Animated.View>
+          </Animated.View>
+        );
+      },
+    });
+  }, [Y.value, navigation, songs]);
+
+  function headerComponent() {
+    return (
+      <View style={styles.container}>
+        <Animated.View
+          style={[
+            {alignItems: 'center', height: '145%', marginBottom: '7%'},
+            animatedViewStyle,
+          ]}>
+          <Animated.Image
+            style={[styles.image, animatedImageStyle]}
+            source={images.CardPic}
+          />
+        </Animated.View>
+
+        {artistName && (
+          <Text style={styles.textStyle}>
+            Tune in to Top Tracks from {artistName}
+          </Text>
+        )}
+        <View style={{flexDirection: 'row'}}>
+          <Image style={styles.logoStyle} source={images.SpotifyGreenLogo} />
+          <Text style={styles.spotifyText}>Spotify</Text>
+        </View>
+        <View>
+          <Text style={styles.textStyle}>Duratoin. {formattedTime} </Text>
+          {/* <Text style={styles.textStyle}>Tracks. {} </Text> */}
+        </View>
+        <View style={styles.logoscontainer}>
+          <View style={{flexDirection: 'row'}}>
+            <IconButton
+              cstmstyle={{marginHorizontal: 10}}
+              name="heart-outline"
+              color={'white'}
+            />
+            <IconButton name="ellipsis-vertical-outline" color={'white'} />
+          </View>
+          <Image style={styles.playLogoStyle} source={images.PlayGreenLogo} />
+        </View>
+      </View>
+    );
+  }
+
+  const tabBarHeight = useBottomTabBarHeight();
+
+  return (
+    <Animated.ScrollView
+      onScroll={scrollHandler}
+      scrollEventThrottle={16}
+      // disableScrollViewPanResponder
+      decelerationRate="fast"
+      contentContainerStyle={{
+        flexGrow: 1,
+        backgroundColor: '#000000ea',
+        paddingBottom: tabBarHeight,
+      }}>
       <List
         data={songs?.tracks?.items}
         onPress={(id: any) => MusicPlayerHandler(id)}
         share={share}
+        ListHeaderComponent={headerComponent}
       />
-    </View>
+    </Animated.ScrollView>
   );
 };
 

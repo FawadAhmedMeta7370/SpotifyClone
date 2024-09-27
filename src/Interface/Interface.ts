@@ -1,4 +1,4 @@
-import {ColorValue, GestureResponderEvent, ImageSourcePropType} from 'react-native';
+import {ColorValue, GestureResponderEvent, ImageSourcePropType, StyleProp, ViewStyle} from 'react-native';
 // import {NavigationAction, NavigationProp, ParamListBase} from '@react-navigation/native';
 
 export interface ILogin {
@@ -48,7 +48,7 @@ export interface IIconButton {
   name?: string | null | any;
   color?: string | number | ColorValue;
   onPress?: any;
-  cstmstyle?: object;
+  cstmstyle?: StyleProp<ViewStyle>;
   cstmsize?: number;
 }
 
@@ -92,6 +92,7 @@ export interface IPlaylistScreen {
 }
 
 export interface IList {
+  ListHeaderComponent?: any
   data?: any
   share?: ((event: GestureResponderEvent) => void)
   onPress?: any;
